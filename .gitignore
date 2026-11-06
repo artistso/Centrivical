@@ -1,0 +1,26 @@
+# Python / Node tooling
+.venv/
+node_modules/
+__pycache__/
+*.pyc
+
+# Generated book outputs
+build/
+
+# Android / Gradle
+.gradle/
+local.properties
+app/build/
+*.apk
+*.aab
+*.keystore
+*.jks
+keystore.properties
+captures/
+.externalNativeBuild/
+.cxx/
+
+# IDE
+.idea/
+*.iml
+.DS_Store
