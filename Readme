@@ -1,0 +1,825 @@
+# Centrivical: Mini-Book and Companion App Package
+
+This package has five parts:
+
+1. **Publishing plan**: what goes where and what to decide first.
+2. **Complete book manuscript**: a single Markdown file you can build into PDF and EPUB.
+3. **Book build and Google Play Books upload steps.**
+4. **Complete Android app source**: Kotlin with Jetpack Compose.
+5. **APK and Play Store build and release steps**, plus a final checklist.
+
+Throughout, the term keeps its **proposed** status. Neither the book nor the app claims the word is established.
+
+---
+
+## Part 1 — Publishing plan
+
+| Item | Recommendation |
+|---|---|
+| **Book title** | *Centrivical: A Proposed Kinematic Term for Inward Swirling Flow* |
+| **Book platform** | Google Play Books Partner Center. Books published there also appear in Google Books search. |
+| **Formats** | Upload **both** a PDF and an EPUB. The PDF preserves the mathematics exactly. Check how the EPUB renders equations in the Partner Center preview. |
+| **ISBN** | Optional. Google assigns an internal identifier (GGKEY) if you have none. Buy an ISBN only if you want listings beyond Google. Cost and source vary by country. |
+| **License** | Consider **CC BY 4.0** for the text. A term proposal spreads more easily if people can quote and reuse it. |
+| **Price** | Free is sensible for a proposal. A paid listing requires a payments profile. |
+| **App name** | *Centrivical Explorer* (package `org.centrivical.explorer`) |
+| **App features** | (1) Definition reader; (2) uncertainty-aware classifier with the transverse angle β; (3) interactive streamline plots of the canonical examples, including the L8c counterexample |
+| **App distribution** | A signed **APK** works for direct download or sideloading. **Google Play requires an AAB**, not an APK, for new apps. |
+| **Citability (optional)** | Deposit the PDF on Zenodo for a free DOI. Technical terms are adopted through citable documents more than through store listings. |
+
+**Before publishing**, search Google Scholar, Google Books and arXiv for “centrivical.” This is only to confirm nobody uses the word differently. The book already disclaims priority.
+
+---
+
+## Part 2 — Book manuscript (`book.md`)
+
+Save the following as `book.md`. Replace `[Author Name]`, `[contact]` and the year.
+
+```markdown
+---
+title: "Centrivical"
+subtitle: "A Proposed Kinematic Term for Inward Swirling Flow"
+author: "[Author Name]"
+date: "2025"
+lang: en-US
+rights: "© 2025 [Author Name]. Text licensed under Creative Commons Attribution 4.0 (CC BY 4.0)."
+documentclass: book
+classoption: oneside
+geometry: "paperwidth=6in, paperheight=9in, margin=0.85in"
+fontsize: 11pt
+toc: true
+---
+
+# Preface {-}
+
+This short book proposes a word. It does not report a discovery, a force, or a law of nature. **"Centrivical" is a proposed term, not an established term in mathematics or physics**, and nothing here claims standard usage or priority.
+
+The proposal is narrow. A field or flow is *centrivical* about an axis when it moves inward toward that axis while also moving around it. That is all. The rest of the book explains why the definition is stated the way it is. It tests the definition against symmetries, frame changes, superposition and trajectory behavior, and it records what the word deliberately does *not* claim.
+
+The text grew out of several rounds of critical review. Each round removed an overstatement: circulation was not the right word, inflow alone rules out closed orbits, and the asymptotic fates of trajectories cannot be fully classified. The corrections are built into the definitions and lemmas that follow.
+
+A free companion Android app, *Centrivical Explorer*, implements the definition, the measurement classifier of Chapter 9 and the examples of Chapter 8 (see Appendix C).
+
+Comments and objections are welcome at [contact].
+
+# Why Propose a Word?
+
+Inward swirling motion is common: water entering a drain, air spiraling into the low-level inflow of a tropical cyclone, gas drifting inward in an accretion disk, the stretched vortex tubes of turbulence modeled by the Burgers vortex. Each combines two features: motion **toward** an axis and motion **around** it.
+
+Existing vocabulary splits these features or blurs them:
+
+- *Centripetal* describes an inward **acceleration** or force, not an inward velocity, and requires no swirl.
+- *Centrifugal* describes an outward fictitious force in a rotating frame.
+- *Vortical* is used in fluid mechanics for nonzero **vorticity**, which is a different property from swirling velocity.
+- *Swirling* says nothing about inward drift.
+
+The phrase "inward-spiraling flow" already works, and nothing in this book shows that a new word is *necessary*. The proposal offers compactness: a single adjective with a precise, checkable definition, usable in sentences such as "the flow is centrivical about $A$ in the laboratory frame on the annulus $1<r<2$."
+
+The word carries **no dynamical content**. It is a kinematic label, like "irrotational" or "solenoidal," but weaker. It constrains signs, not equations.
+
+# The Definition
+
+## Geometry
+
+Work in an oriented Euclidean 3-space $E$ with a chosen oriented axis $A$. Let $\mathbf e_z$ be the unit vector along the positive direction of $A$. At a point $x\notin A$, let $r(x)=\operatorname{dist}(x,A)>0$, let $\mathbf e_r$ point radially away from $A$, and set
+$$
+\mathbf e_\phi=\mathbf e_z\times\mathbf e_r .
+$$
+Any vector field decomposes as
+$$
+\mathbf u=u_r\,\mathbf e_r+u_\phi\,\mathbf e_\phi+u_z\,\mathbf e_z .
+$$
+
+## The predicate
+
+> **Definition (centrivical).** A vector field $\mathbf u$ is **centrivical at $x$ about $A$** iff
+> $$u_r(x)<0 \quad\text{and}\quad u_\phi(x)\neq 0.$$
+> It is **centrivical on a set $D$** iff these inequalities hold at every point of $D$.
+
+For a velocity field this reads: **inward radial drift plus nonzero azimuthal velocity** (nonzero swirl).
+
+Four remarks fix the scope:
+
+1. The definition is **pointwise**. It does not require axisymmetry.
+2. It is **relative to a stated axis and frame**. Change either and the verdict may change (Chapter 5).
+3. It is **undefined on the axis**, where $\mathbf e_r$ and $\mathbf e_\phi$ are undefined. The field itself need not be singular there.
+4. For a **time-dependent** field, apply it at a fixed time or pointwise on a stated space-time set.
+
+## Circulation is a different thing
+
+The predicate does **not** assert nonzero circulation. Circulation is a loop integral,
+$$
+\Gamma(C)=\oint_C \mathbf u\cdot d\boldsymbol\ell ,
+$$
+which depends on the field all along the loop. A nonzero $u_\phi$ at one point says nothing about it.
+
+Conversely, nonzero circulation does not require $u_\phi\neq 0$ everywhere. On $r>0$ the field
+$$
+u_r=u_z=0,\qquad u_\phi=\frac{\Gamma}{2\pi r}(1-\cos\phi)
+$$
+has circulation $\Gamma$ around every positively oriented loop linking $A$ once. Yet $u_\phi=0$ on the ray $\phi=0$.
+
+In this book, **"circulation" always means $\Gamma(C)$**. The pointwise condition is always called "nonzero azimuthal velocity" or "nonzero swirl."
+
+# Neighboring Terms
+
+| Term | Meaning | Distinction from "centrivical" |
+|---|---|---|
+| Centripetal | Inward radial acceleration or force; for uniform circular motion $\mathbf a_c=-\Omega^2 r\,\mathbf e_r$ | Requires neither inward velocity nor swirl |
+| Centrifugal | Outward fictitious force in a rotating frame, $\mathbf F_{\rm cf}=m\Omega^2 r\,\mathbf e_r$ | Opposite radial direction; no swirl required |
+| Swirling | $u_\phi\neq 0$ | No inward drift required |
+| Vortical | Often: nonzero vorticity $\nabla\times\mathbf u$ | Vorticity is not azimuthal velocity |
+| **Centrivical** (proposed) | $u_r<0$ and $u_\phi\neq 0$ | Inward drift and swirl together |
+
+A centrivical field is not thereby a centripetal force, a centrifugal force, or a field with nonzero vorticity. The sink-plus-vortex flow of Chapter 8 swirls and is centrivical, yet it is irrotational away from the axis.
+
+# Axioms
+
+All later statements are conditional on these.
+
+**A0 — Proposed status.** "Centrivical" has no meaning independent of the definition in Chapter 2.
+
+**A1 — Geometry and frame.** The axis $A$, its orientation and the frame in which the field is given are fixed in advance.
+
+**A2 — Set.** $D\subset E\setminus A$ is nonempty and need not be connected.
+
+**A3 — Regularity.** Continuity suffices for the predicate. Derivative statements need corresponding differentiability. Flow and $\omega$-limit statements assume $D$ is open and the autonomous field is locally Lipschitz.
+
+**A4 — Definition.** The field is centrivical on $D$ iff $u_r<0$ and $u_\phi\neq 0$ at every point of $D$.
+
+**A5 — Flow convention.** Trajectories satisfy $\dot x=\mathbf u(x,t)$. For autonomous fields,
+$$
+\dot r=u_r,\qquad \dot\phi=\frac{u_\phi}{r},\qquad \dot z=u_z .
+$$
+
+**A6 — No force language.** The definition defines no "centrivical force" and no force law. A force field with these component signs must be described separately and explicitly. It must never be identified with centripetal force.
+
+# Symmetry, Scaling, Superposition and Frames
+
+**L1 — Axis-preserving isometries.** Translations along $A$ and rotations about $A$ preserve centrivicality. A reflection in a plane containing $A$ flips the sign of $u_\phi$ but keeps $u_\phi\neq 0$.
+
+**L2 — Axial irrelevance.** For any scalar function $f$, $\mathbf u$ is centrivical iff $\mathbf u+f\,\mathbf e_z$ is.
+
+**L3 — Time reversal.** Reversing a velocity field makes $u_r>0$, so the reversed field is not centrivical.
+
+**L4 — Scaling.** For a constant $\lambda>0$, $\lambda\mathbf u$ is centrivical iff $\mathbf u$ is. If $\mathbf u$ is centrivical and $\lambda\le 0$, then $\lambda\mathbf u$ is not: negative scaling reverses the radial sign, and zero scaling makes it zero.
+
+**L5 — Non-closure under addition.** Radial parts of two centrivical fields add to something negative, but azimuthal parts can cancel:
+$$
+(-\mathbf e_r+\mathbf e_\phi)+(-\mathbf e_r-\mathbf e_\phi)=-2\,\mathbf e_r .
+$$
+Centrivical fields therefore do not form a vector space, and centrivicality is not preserved by arbitrary superposition. (Fields with a *fixed* swirl sign do behave better; see Exercise 5.)
+
+**L6 — Galilean boosts.** Under a boost by constant velocity $\mathbf V$ transverse to $A$,
+$$
+u_r'=u_r-\mathbf V\cdot\mathbf e_r,\qquad u_\phi'=u_\phi-\mathbf V\cdot\mathbf e_\phi .
+$$
+Either inequality can be created or destroyed. **Always name the observer frame in the same sentence as the axis.**
+
+**L7 — Rotating frames.** In a frame rotating at constant rate $\Omega$ about $A$,
+$$
+u_r'=u_r,\qquad u_\phi'=u_\phi-\Omega r .
+$$
+Inflow survives every co-axial rotating frame, but swirl can be cancelled exactly.
+
+# Trajectories
+
+**L8a — Radial monotonicity.** Along an autonomous trajectory remaining in a region where $u_r<0$, $\dot r=u_r<0$. So $r$ strictly decreases and **no periodic orbit lies wholly in $D$**. This uses inflow alone; swirl plays no role.
+
+**L8b — Angular motion.** For a centrivical autonomous flow, $\dot\phi=u_\phi/r\neq 0$. An unwrapped angle is strictly monotone along each trajectory, so the transverse projection spirals inward. The full trajectory may also move axially, because $u_z$ is unrestricted. On each **connected component** of $D$, the sign of $u_\phi$ is constant. Different components may swirl in opposite senses.
+
+**L8c — The radial limit, and its limits.** Let a trajectory remain in $D$ on its maximal forward interval $[0,T_{\max})$. Since $r(t)>0$ decreases strictly, the limit
+$$
+r_\infty=\lim_{t\uparrow T_{\max}} r(t)
+$$
+exists and is nonnegative.
+
+- If $r_\infty=0$, the trajectory approaches the axis in distance: in finite time if $T_{\max}<\infty$, asymptotically otherwise.
+- If $r_\infty>0$, **nothing general follows**. The trajectory may approach a non-axis boundary, escape to infinity along the axis, or have no finite spatial limit.
+
+*Counterexample to any longer list.* On $D=\{r>1\}$ the field $\mathbf u=-(r-1)\,\mathbf e_r+\mathbf e_\phi$ is centrivical. Its trajectories satisfy
+$$
+r(t)=1+(r(0)-1)\,e^{-t}.
+$$
+They approach the boundary circle $r=1$, never the axis.
+
+What *can* be said: under the assumptions of A3, a forward-complete trajectory has no $\omega$-limit point inside $D$. At such a point $u_r<0$ would force a further decrease of $r$, inconsistent with recurrence. Limit points on the boundary are not excluded.
+
+**L9 — Streamline equation.** Wherever $u_\phi\neq 0$,
+$$
+\frac{dr}{d\phi}=\frac{r\,u_r}{u_\phi}.
+$$
+
+# What the Word Does Not Say
+
+**L10 — Divergence is independent.** In cylindrical coordinates,
+$$
+\nabla\cdot\mathbf u=\frac1r\frac{\partial(r u_r)}{\partial r}+\frac1r\frac{\partial u_\phi}{\partial\phi}+\frac{\partial u_z}{\partial z},
+$$
+and centrivicality constrains none of it.
+
+**L11 — Vorticity is independent.** A centrivical field may be irrotational away from the axis (Example 2 below) or rotational (Example 3).
+
+**L12 — Excluded cases.** Pure rotation ($u_r=0$), pure radial inflow ($u_\phi=0$) and outward motion ($u_r>0$) are not centrivical.
+
+**P1 — Characterization.** A field is centrivical on $D$ exactly when its projection onto the plane normal to $A$ has negative radial and nonzero azimuthal component throughout $D$.
+
+**P2 — No dynamics.** Centrivicality implies no centripetal acceleration, no incompressibility, no vorticity, no force law and no conservation law.
+
+# Canonical Examples
+
+**Example 1 — Linear inward spiral.**
+$$
+\mathbf u=-a r\,\mathbf e_r+\Omega r\,\mathbf e_\phi,\qquad a>0,\ \Omega\neq 0 .
+$$
+Here $r(t)=r_0e^{-at}$ and $r(\phi)=r_0\exp[-(a/\Omega)(\phi-\phi_0)]$: a logarithmic spiral.
+
+**Example 2 — Sink plus vortex.**
+$$
+\mathbf u=-\frac{Q}{2\pi r}\,\mathbf e_r+\frac{\Gamma}{2\pi r}\,\mathbf e_\phi,\qquad Q>0,\ \Gamma\neq 0 .
+$$
+$Q$ is the sink strength and $\Gamma$ the circulation. The flow is incompressible and curl-free away from the axis, singular on it, and has streamlines $r(\phi)=r_0\exp[-(Q/\Gamma)(\phi-\phi_0)]$. Its nonzero circulation despite zero curl comes from the topology of the punctured domain.
+
+**Example 3 — Burgers vortex.**
+$$
+u_r=-\frac a2 r,\qquad u_\phi=\frac{\Gamma}{2\pi r}\left(1-e^{-a r^2/(4\nu)}\right),\qquad u_z=a z,
+$$
+with $a>0$, $\nu>0$, $\Gamma\neq 0$. It is incompressible, rotational and smooth through the axis. It is centrivical for $r>0$.
+
+**Example 4 — Boundary approach (from L8c).** $\mathbf u=-(r-1)\,\mathbf e_r+\mathbf e_\phi$ on $r>1$. It is centrivical, yet trajectories approach $r=1$ rather than the axis.
+
+Together these separate the predicate from divergence and from vorticity, and they show the limits of trajectory classification.
+
+# From Definition to Data
+
+## Uniform margin
+
+For a compact $D_0\subset D$ and $\varepsilon>0$, call $\mathbf u$ **$(\varepsilon,D_0)$-centrivical** if
+$$
+u_r\le -\varepsilon,\qquad |u_\phi|\ge\varepsilon \quad\text{on } D_0 .
+$$
+This is a **margin**, not a tolerance. A continuous, strictly centrivical field on a compact set automatically has some positive margin. An isolated zero of $u_\phi$ fails both the strict definition and every margin condition.
+
+## Measurement uncertainty
+
+Suppose component estimates come with closed uncertainty intervals $I_r$ and $I_\phi$. The result is:
+
+- **centrivical** if $\sup I_r<0$ and $0\notin I_\phi$;
+- **not centrivical** if $I_r\subset[0,\infty)$ or $I_\phi=\{0\}$;
+- **undetermined** otherwise.
+
+Failing to resolve swirl above a noise floor is not evidence that swirl is zero.
+
+## Signed transverse angle
+
+For a centrivical field define
+$$
+\beta=\operatorname{atan2}(u_\phi,-u_r)\in\left(-\tfrac\pi2,\tfrac\pi2\right)\setminus\{0\}.
+$$
+Then $\operatorname{sgn}\beta=\operatorname{sgn}u_\phi$. Positive values mean counterclockwise swirl viewed from the positive end of $A$. $|\beta|$ is the angle between the transverse velocity and the inward radial direction. $\beta$ ignores $u_z$, and centrivicality alone determines neither a swirl number nor helicity.
+
+# Usage Guide
+
+**Etymology.** The word is a deliberate blend of *centripetal* and *vortical*, meaning loosely "center-seeking swirl." It is not a regular Latin formation: *centripetal* comes from *centrum* and *petere*, and *vortical* from *vortex*. **Centrovortical** would be a more transparent compound. This proposal retains *centrivical*.
+
+**Rules of use.**
+
+1. State the definition at first use: "By *centrivical* I mean a field with inward radial motion and nonzero azimuthal motion about a stated axis."
+2. Prefer "centrivical flow" and "centrivical field." Avoid "centrivical force."
+3. Name the axis and the observer frame together.
+4. Do not place the word where readers may take it for a third classical force beside "centripetal" and "centrifugal."
+5. Noun: *centrivicality*. Adverb: *centrivically*. Avoid the bare noun "a centrivical."
+6. Do not infer incompressibility, vorticity, centripetal acceleration or any force law.
+7. Reserve "circulation" for the loop integral.
+8. Keep the margin diagnostic separate from the strict definition. Report "undetermined" when uncertainty prevents a decision.
+
+# Conclusion
+
+"Centrivical" is proposed as a narrow kinematic adjective: inward radial motion plus nonzero azimuthal motion, relative to a stated axis and frame.
+
+- It is invariant under axis-preserving isometries and axial additions.
+- It is not invariant under time reversal, Galilean boosts, co-axial rotating frames or arbitrary superposition.
+- It is independent of divergence and vorticity.
+- Inflow alone rules out periodic orbits, and swirl adds angular motion.
+- The only general radial conclusion is that $r(t)$ decreases to a limit.
+
+Whether the word is worth adopting is for its potential users to decide. This book aims only to make the proposal precise enough to be judged.
+
+# Appendix A — Notation {-}
+
+| Symbol | Meaning |
+|---|---|
+| $A$ | Oriented reference axis |
+| $r,\phi,z$ | Cylindrical coordinates about $A$ |
+| $u_r,u_\phi,u_z$ | Radial, azimuthal and axial components |
+| $D$ | Set on which centrivicality is asserted ($D\cap A=\varnothing$) |
+| $\Gamma(C)$ | Circulation around a closed curve $C$ |
+| $\beta$ | Signed transverse angle |
+| $I_r,I_\phi$ | Uncertainty intervals for measured components |
+
+# Appendix B — Exercises with Solutions {-}
+
+**1.** Is $\mathbf u=-\mathbf e_r+5\,\mathbf e_z$ centrivical?
+*Solution.* No. $u_\phi=0$; this is pure radial inflow with axial motion.
+
+**2.** Is $\mathbf u=-r\,\mathbf e_r+(1-\cos\phi)\,\mathbf e_\phi$ centrivical on $r>0$?
+*Solution.* No. It fails on the ray $\phi=0$, although it is centrivical on the complement of that ray.
+
+**3.** Example 1 with rate $\Omega$ is viewed from a frame rotating at the same rate $\Omega$ about $A$. Is it centrivical there?
+*Solution.* No. By L7, $u_\phi'=\Omega r-\Omega r=0$ everywhere; the flow appears as pure radial inflow.
+
+**4.** Compute $\beta$ for Example 1.
+*Solution.* $\beta=\operatorname{atan2}(\Omega r, a r)=\arctan(\Omega/a)$. This is constant, which is why the streamlines are logarithmic spirals.
+
+**5.** Let $\mathbf u,\mathbf v$ be centrivical on $D$ with $u_\phi>0$ and $v_\phi>0$. Show that $\mathbf u+\mathbf v$ is centrivical.
+*Solution.* $u_r+v_r<0$ and $u_\phi+v_\phi>0$. Fields with a fixed positive swirl sign are therefore closed under addition and under positive scaling. L5 fails only when swirl signs differ.
+
+**6.** Measured $u_r=-0.2\pm0.3$ and $u_\phi=1.0\pm0.1$. Classify.
+*Solution.* $I_r=[-0.5,0.1]$ contains values $\ge 0$ and values $<0$, so the result is **undetermined**.
+
+# Appendix C — Companion App {-}
+
+*Centrivical Explorer* is a free Android app with three screens:
+
+- **Define**: the definition and its status.
+- **Classify**: enter measured components with uncertainties. The app returns *centrivical*, *not centrivical* or *undetermined*, plus $\beta$.
+- **Explore**: interactive streamlines for Examples 1–4, with sliders for inflow and swirl and a sampled centrivicality check.
+
+The sampled check in the app is a numerical illustration, not a proof.
+```
+
+---
+
+## Part 3 — Building the book and publishing on Google Play Books
+
+### 3.1 Build
+
+Install **Pandoc** and a LaTeX distribution (TeX Live or MiKTeX). Then run:
+
+```bash
+# PDF: exact math rendering, 6x9 in trim
+pandoc book.md -o centrivical.pdf --pdf-engine=xelatex --top-level-division=chapter
+
+# EPUB 3 with MathML equations
+pandoc book.md -o centrivical.epub --mathml --top-level-division=chapter \
+       --epub-cover-image=cover.jpg
+```
+
+**Cover:** make a simple cover (`cover.jpg`, portrait, high resolution) showing the title, subtitle, author and an inward-spiral image. A screenshot of the app’s Example 1 plot works well. Check the current pixel requirements in Partner Center when you upload.
+
+### 3.2 Publish
+
+1. Go to **Google Play Books Partner Center** (`play.google.com/books/publish`) and sign in with a Google account.
+2. **Add book.** Enter an ISBN if you have one; otherwise let Google assign an identifier.
+3. **Metadata:**
+   - Title and subtitle as above.
+   - Description: *“A short formal proposal of ‘centrivical’, a proposed (not established) kinematic term for flows with inward radial drift and nonzero azimuthal velocity. Includes axioms, lemmas, canonical examples, a measurement classifier and exercises.”*
+   - Subjects: Science / Physics / Mathematical & Computational; Mathematics / Vector Analysis.
+   - Language: English.
+   - Contributor: you, as Author.
+4. **Content:** upload `centrivical.pdf` and `centrivical.epub`. Open the preview and check every equation in the EPUB view. If any render badly, keep the PDF and fix the EPUB before going live.
+5. **Pricing and territories:** set Free (or a price with a payments profile), choose worldwide, and set the license or rights statement.
+6. **Publish.** Review usually takes from a few days to a couple of weeks.
+
+---
+
+## Part 4 — Android app source (*Centrivical Explorer*)
+
+### 4.1 Project setup
+
+The simplest route avoids hand-writing icons and resources:
+
+1. In **Android Studio**, choose **New Project → Empty Activity** (Compose).
+2. Name it `Centrivical Explorer`, with package `org.centrivical.explorer` and minimum SDK 24.
+3. Replace or add the files below. If Android Studio proposes newer library versions, accept them.
+
+### 4.2 `app/build.gradle.kts`
+
+```kotlin
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
+}
+
+android {
+    namespace = "org.centrivical.explorer"
+    compileSdk = 35
+
+    defaultConfig {
+        applicationId = "org.centrivical.explorer"
+        minSdk = 24
+        targetSdk = 35
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    buildTypes {
+        release { isMinifyEnabled = false }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions { jvmTarget = "17" }
+    buildFeatures { compose = true }
+}
+
+dependencies {
+    implementation(platform("androidx.compose:compose-bom:2024.09.00"))
+    implementation("androidx.activity:activity-compose:1.9.2")
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material3:material3")
+    testImplementation("junit:junit:4.13.2")
+}
+```
+
+The root `build.gradle.kts` needs the Kotlin Compose plugin alongside the Android plugins. The Empty Activity template already includes it when it uses Kotlin 2.x:
+
+```kotlin
+plugins {
+    id("com.android.application") version "8.7.0" apply false
+    id("org.jetbrains.kotlin.android") version "2.0.20" apply false
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.20" apply false
+}
+```
+
+### 4.3 Core math: `app/src/main/java/org/centrivical/explorer/Centrivical.kt`
+
+```kotlin
+package org.centrivical.explorer
+
+import kotlin.math.*
+
+enum class Verdict { CENTRIVICAL, NOT_CENTRIVICAL, UNDETERMINED }
+
+data class Interval(val lo: Double, val hi: Double) {
+    init { require(lo <= hi) { "lo must be <= hi" } }
+    fun containsValue(x: Double) = x in lo..hi
+}
+
+object Centrivical {
+    /** Strict pointwise definition (A4): u_r < 0 and u_phi != 0. */
+    fun isCentrivical(ur: Double, uphi: Double): Boolean = ur < 0.0 && uphi != 0.0
+
+    /** Measurement classifier (Chapter 9). */
+    fun classify(ir: Interval, iphi: Interval): Verdict = when {
+        ir.hi < 0.0 && !iphi.containsValue(0.0) -> Verdict.CENTRIVICAL
+        ir.lo >= 0.0 || (iphi.lo == 0.0 && iphi.hi == 0.0) -> Verdict.NOT_CENTRIVICAL
+        else -> Verdict.UNDETERMINED
+    }
+
+    /** Signed transverse angle beta = atan2(u_phi, -u_r), defined only when centrivical. */
+    fun beta(ur: Double, uphi: Double): Double? =
+        if (isCentrivical(ur, uphi)) atan2(uphi, -ur) else null
+}
+
+/** Planar (radial-azimuthal) field. u_z is irrelevant to the predicate (L2). */
+data class PlanarField(
+    val name: String,
+    val formula: String,
+    val rMin: Double,                      // inner boundary of D (0 = axis only)
+    val ur: (Double, Double) -> Double,    // (r, phi) -> u_r
+    val uphi: (Double, Double) -> Double   // (r, phi) -> u_phi
+)
+
+val exampleNames = listOf("Linear spiral", "Sink + vortex", "Burgers-type", "Boundary approach")
+
+fun makeField(which: Int, k: Double, s: Double): PlanarField = when (which) {
+    0 -> PlanarField(exampleNames[0], "u_r = −k·r,   u_φ = s·r", 0.0,
+        { r, _ -> -k * r }, { r, _ -> s * r })
+    1 -> PlanarField(exampleNames[1], "u_r = −k/(2πr),   u_φ = s/(2πr)", 0.0,
+        { r, _ -> -k / (2 * PI * r) }, { r, _ -> s / (2 * PI * r) })
+    2 -> {
+        val nu = 0.05 // core fixed with a = 1; exact Burgers vortex when k = 1
+        PlanarField(exampleNames[2],
+            "u_r = −(k/2)·r,   u_φ = s/(2πr)·(1 − e^(−r²/(4ν))),  ν = 0.05\n(exact Burgers vortex when k = 1)",
+            0.0,
+            { r, _ -> -(k / 2) * r },
+            { r, _ -> s / (2 * PI * r) * (1 - exp(-r * r / (4 * nu))) })
+    }
+    else -> PlanarField(exampleNames[3], "u_r = −k·(r − 1),   u_φ = s,   on r > 1", 1.0,
+        { r, _ -> -k * (r - 1) }, { _, _ -> s })
+}
+
+fun velocityXY(f: PlanarField, x: Double, y: Double): DoubleArray {
+    val r = hypot(x, y)
+    val phi = atan2(y, x)
+    val ur = f.ur(r, phi)
+    val up = f.uphi(r, phi)
+    val c = cos(phi)
+    val sn = sin(phi)
+    return doubleArrayOf(ur * c - up * sn, ur * sn + up * c)
+}
+
+/** Streamline traced by RK4 in arc length (direction field u/|u|). */
+fun streamline(
+    f: PlanarField, x0: Double, y0: Double, rMax: Double,
+    ds: Double = 0.01, maxSteps: Int = 3000
+): List<Pair<Double, Double>> {
+    val pts = ArrayList<Pair<Double, Double>>()
+    var x = x0
+    var y = y0
+    fun dir(px: Double, py: Double): DoubleArray? {
+        val v = velocityXY(f, px, py)
+        val n = hypot(v[0], v[1])
+        return if (!n.isFinite() || n < 1e-12) null else doubleArrayOf(v[0] / n, v[1] / n)
+    }
+    pts.add(x to y)
+    repeat(maxSteps) {
+        val r = hypot(x, y)
+        if (r < f.rMin + 0.02 || r < 0.03 || r > rMax) return pts
+        val k1 = dir(x, y) ?: return pts
+        val k2 = dir(x + 0.5 * ds * k1[0], y + 0.5 * ds * k1[1]) ?: return pts
+        val k3 = dir(x + 0.5 * ds * k2[0], y + 0.5 * ds * k2[1]) ?: return pts
+        val k4 = dir(x + ds * k3[0], y + ds * k3[1]) ?: return pts
+        x += ds / 6 * (k1[0] + 2 * k2[0] + 2 * k3[0] + k4[0])
+        y += ds / 6 * (k1[1] + 2 * k2[1] + 2 * k3[1] + k4[1])
+        pts.add(x to y)
+    }
+    return pts
+}
+
+/** Sampled check on an annulus. A numerical illustration, not a proof. */
+fun centrivicalOnSampledAnnulus(f: PlanarField, rLo: Double, rHi: Double): Boolean =
+    (0..40).all { i ->
+        val r = rLo + (rHi - rLo) * i / 40.0
+        (0 until 36).all { j ->
+            val phi = 2 * PI * j / 36.0
+            Centrivical.isCentrivical(f.ur(r, phi), f.uphi(r, phi))
+        }
+    }
+```
+
+### 4.4 User interface: `app/src/main/java/org/centrivical/explorer/MainActivity.kt`
+
+```kotlin
+package org.centrivical.explorer
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import kotlin.math.*
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent { MaterialTheme { App() } }
+    }
+}
+
+@Composable
+fun App() {
+    var tab by remember { mutableIntStateOf(0) }
+    val titles = listOf("Define", "Classify", "Explore")
+    Scaffold(bottomBar = {
+        NavigationBar {
+            titles.forEachIndexed { i, t ->
+                NavigationBarItem(
+                    selected = tab == i, onClick = { tab = i },
+                    icon = { Text(t.take(1), fontWeight = FontWeight.Bold) },
+                    label = { Text(t) })
+            }
+        }
+    }) { pad ->
+        Box(Modifier.padding(pad).fillMaxSize()) {
+            when (tab) {
+                0 -> DefineScreen()
+                1 -> ClassifyScreen()
+                else -> ExploreScreen()
+            }
+        }
+    }
+}
+
+@Composable
+fun DefineScreen() {
+    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Text("Centrivical", style = MaterialTheme.typography.headlineMedium)
+        Text("Status: a PROPOSED term, not an established term in mathematics or physics.",
+            fontWeight = FontWeight.Bold)
+        Text("Definition. A field u is centrivical at a point x (off the axis A) iff\n\n" +
+             "    u_r(x) < 0   and   u_φ(x) ≠ 0,\n\n" +
+             "i.e. inward radial drift plus nonzero azimuthal velocity, relative to a stated axis and frame.")
+        Text("• Not a force: no 'centrivical force', no force law.\n" +
+             "• Not circulation: circulation is the loop integral ∮ u·dl.\n" +
+             "• Not vorticity: centrivical fields may be irrotational or rotational.\n" +
+             "• Frame-dependent: boosts and rotating frames can change the verdict.\n" +
+             "• Inflow alone rules out periodic orbits; swirl makes the motion spiral.")
+        Text("Etymology: a blend of centripetal + vortical ('center-seeking swirl').")
+    }
+}
+
+@Composable
+fun NumberField(label: String, value: String, onChange: (String) -> Unit, modifier: Modifier = Modifier) {
+    OutlinedTextField(value = value, onValueChange = onChange, label = { Text(label) },
+        singleLine = true, modifier = modifier)
+}
+
+@Composable
+fun ClassifyScreen() {
+    var ur by remember { mutableStateOf("-1.0") }
+    var dR by remember { mutableStateOf("0.1") }
+    var up by remember { mutableStateOf("0.5") }
+    var dPhi by remember { mutableStateOf("0.1") }
+
+    val a = ur.toDoubleOrNull()
+    val da = dR.toDoubleOrNull()
+    val b = up.toDoubleOrNull()
+    val db = dPhi.toDoubleOrNull()
+    val valid = a != null && da != null && b != null && db != null && da >= 0 && db >= 0
+
+    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Text("Measurement classifier", style = MaterialTheme.typography.titleLarge)
+        Text("Enter estimates with ± uncertainty (closed intervals).")
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            NumberField("u_r", ur, { ur = it }, Modifier.weight(1f))
+            NumberField("± δr", dR, { dR = it }, Modifier.weight(1f))
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            NumberField("u_φ", up, { up = it }, Modifier.weight(1f))
+            NumberField("± δφ", dPhi, { dPhi = it }, Modifier.weight(1f))
+        }
+        if (!valid) {
+            Text("Enter numbers; uncertainties must be ≥ 0.", color = Color(0xFFC62828))
+        } else {
+            val verdict = Centrivical.classify(Interval(a!! - da!!, a + da), Interval(b!! - db!!, b + db))
+            val (txt, col) = when (verdict) {
+                Verdict.CENTRIVICAL -> "CENTRIVICAL (certified)" to Color(0xFF2E7D32)
+                Verdict.NOT_CENTRIVICAL -> "NOT CENTRIVICAL (certified)" to Color(0xFFC62828)
+                Verdict.UNDETERMINED -> "UNDETERMINED" to Color(0xFFEF6C00)
+            }
+            Text(txt, color = col, style = MaterialTheme.typography.headlineSmall)
+            Text("I_r = [${fmt(a - da)}, ${fmt(a + da)}],   I_φ = [${fmt(b - db)}, ${fmt(b + db)}]")
+            val beta = Centrivical.beta(a, b)
+            Text(if (beta != null)
+                "Central values: β = ${fmt(Math.toDegrees(beta))}°  (${if (beta > 0) "counterclockwise" else "clockwise"} viewed from +A)"
+            else "Central values are not centrivical; β undefined.")
+            Text("Rule: centrivical if sup I_r < 0 and 0 ∉ I_φ; not centrivical if I_r ⊂ [0,∞) or I_φ = {0}; " +
+                 "otherwise undetermined. Unresolved swirl is not evidence of zero swirl.",
+                style = MaterialTheme.typography.bodySmall)
+        }
+    }
+}
+
+fun fmt(x: Double) = String.format("%.3f", x)
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ExploreScreen() {
+    var which by remember { mutableIntStateOf(0) }
+    var k by remember { mutableFloatStateOf(1f) }
+    var s by remember { mutableFloatStateOf(1f) }
+    val rMax = 2.0
+
+    val field = remember(which, k, s) { makeField(which, k.toDouble(), s.toDouble()) }
+    val seeds = remember(field) {
+        val rings = if (field.rMin > 0) listOf(1.9, 1.4) else listOf(1.9, 1.0)
+        rings.flatMap { r0 -> (0 until 8).map { j -> val p = 2 * PI * j / 8; r0 * cos(p) to r0 * sin(p) } }
+    }
+    val lines = remember(field) { seeds.map { streamline(field, it.first, it.second, rMax) } }
+    val rLo = field.rMin + 0.05
+    val ok = remember(field) { centrivicalOnSampledAnnulus(field, rLo, rMax) }
+
+    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            exampleNames.forEachIndexed { i, n ->
+                FilterChip(selected = which == i, onClick = { which = i }, label = { Text(n) })
+            }
+        }
+        Text(field.formula, style = MaterialTheme.typography.bodyMedium)
+        Text("Inflow k = ${"%.1f".format(k)}")
+        Slider(value = k, onValueChange = { k = it }, valueRange = -2f..2f, steps = 39)
+        Text("Swirl s = ${"%.1f".format(s)}")
+        Slider(value = s, onValueChange = { s = it }, valueRange = -2f..2f, steps = 39)
+        Text(
+            if (ok) "Sampled check on ${fmt(rLo)} ≤ r ≤ 2: centrivical at all 1476 sample points."
+            else "Sampled check on ${fmt(rLo)} ≤ r ≤ 2: FAILS at some sample point (not centrivical).",
+            color = if (ok) Color(0xFF2E7D32) else Color(0xFFC62828))
+        Text("Sampling illustrates; it does not prove.", style = MaterialTheme.typography.bodySmall)
+
+        Canvas(Modifier.fillMaxWidth().aspectRatio(1f)) {
+            val scale = (size.minDimension / (2 * rMax)).toFloat()
+            val c = Offset(size.width / 2, size.height / 2)
+            fun toScreen(x: Double, y: Double) = Offset(c.x + (x * scale).toFloat(), c.y - (y * scale).toFloat())
+            drawCircle(Color.LightGray, radius = (rMax * scale).toFloat(), center = c, style = Stroke(1.5f))
+            if (field.rMin > 0) drawCircle(Color.Gray, radius = (field.rMin * scale).toFloat(), center = c, style = Stroke(3f))
+            lines.forEach { pts ->
+                if (pts.size > 1) {
+                    val path = Path()
+                    val p0 = toScreen(pts[0].first, pts[0].second)
+                    path.moveTo(p0.x, p0.y)
+                    for (i in 1 until pts.size) {
+                        val p = toScreen(pts[i].first, pts[i].second)
+                        path.lineTo(p.x, p.y)
+                    }
+                    drawPath(path, Color(0xFF1565C0), style = Stroke(3f))
+                }
+                drawCircle(Color(0xFF1565C0), radius = 5f, center = toScreen(pts[0].first, pts[0].second))
+            }
+            drawCircle(Color.Black, radius = 6f, center = c) // axis A, viewed from +A
+        }
+        Text("Black dot: axis A (viewed from its positive end). Dots: seed points. " +
+             "Gray circle (Boundary approach): r = 1, which trajectories approach instead of the axis (L8c).",
+            style = MaterialTheme.typography.bodySmall)
+    }
+}
+```
+
+### 4.5 Unit test: `app/src/test/java/org/centrivical/explorer/CentrivicalTest.kt`
+
+```kotlin
+package org.centrivical.explorer
+
+import org.junit.Assert.*
+import org.junit.Test
+
+class CentrivicalTest {
+    @Test fun strict() {
+        assertTrue(Centrivical.isCentrivical(-1.0, 0.5))
+        assertFalse(Centrivical.isCentrivical(0.0, 1.0))   // pure rotation
+        assertFalse(Centrivical.isCentrivical(-1.0, 0.0))  // pure inflow
+        assertFalse(Centrivical.isCentrivical(1.0, 1.0))   // outward spiral
+    }
+    @Test fun superpositionCounterexample() {               // L5
+        assertFalse(Centrivical.isCentrivical(-1.0 + -1.0, 1.0 + -1.0))
+    }
+    @Test fun classifier() {
+        assertEquals(Verdict.CENTRIVICAL, Centrivical.classify(Interval(-1.1, -0.9), Interval(0.4, 0.6)))
+        assertEquals(Verdict.NOT_CENTRIVICAL, Centrivical.classify(Interval(0.0, 0.2), Interval(0.4, 0.6)))
+        assertEquals(Verdict.NOT_CENTRIVICAL, Centrivical.classify(Interval(-1.0, -1.0), Interval(0.0, 0.0)))
+        assertEquals(Verdict.UNDETERMINED, Centrivical.classify(Interval(-0.5, 0.1), Interval(0.9, 1.1))) // Exercise 6
+    }
+    @Test fun betaSign() {
+        assertTrue(Centrivical.beta(-1.0, 1.0)!! > 0)
+        assertTrue(Centrivical.beta(-1.0, -1.0)!! < 0)
+        assertNull(Centrivical.beta(1.0, 1.0))
+    }
+}
+```
+
+---
+
+## Part 5 — Building the APK and publishing the app
+
+### 5.1 APK for direct distribution
+
+| Goal | Android Studio | Command line |
+|---|---|---|
+| Debug APK (testing) | Build → Build APK(s) | `./gradlew assembleDebug` → `app/build/outputs/apk/debug/app-debug.apk` |
+| Signed release APK | Build → Generate Signed Bundle/APK → APK | Configure signing, then `./gradlew assembleRelease` |
+| Run tests | Run `CentrivicalTest` | `./gradlew test` |
+
+**Back up your keystore and its passwords.** If you lose them, you cannot update an app you signed yourself.
+
+A signed APK can be hosted on your website or on GitHub Releases. Users must allow installation from unknown sources.
+
+### 5.2 Google Play Store
+
+1. Create a **Play Console** developer account (one-time US$25 fee, plus identity verification).
+2. Build an **Android App Bundle**: Build → Generate Signed Bundle/APK → Android App Bundle, or `./gradlew bundleRelease`. Play does not accept APKs for new apps.
+3. Use **Play App Signing** (the default).
+4. **Testing requirement:** new *personal* developer accounts must run a closed test with at least 12 opted-in testers for 14 continuous days before production access. Organization accounts are exempt. Check the current rules in Play Console, as Google revises them.
+5. **Store listing:** short description, full description, at least two phone screenshots (Explore and Classify make good ones), a 512×512 icon and a 1024×500 feature graphic.
+6. **Policy forms:**
+   - Data safety: the app collects and shares no data.
+   - Content rating questionnaire: Reference/Education, no objectionable content.
+   - Target audience: adults or general.
+   - Privacy policy URL: a one-paragraph page is enough, for example: *“Centrivical Explorer collects, stores, and transmits no personal or usage data. All computation happens on the device.”*
+7. **Target API:** the app targets API 35, which current Play requirements for new apps call for. Raise it when Google raises the minimum.
+
+**Suggested store description:**
+
+> *Centrivical Explorer* accompanies the book *Centrivical: A Proposed Kinematic Term for Inward Swirling Flow*. “Centrivical” is a **proposed**, not established, term for flows with inward radial drift and nonzero azimuthal velocity. The app shows the definition, classifies measured velocity components (centrivical / not centrivical / undetermined) with the signed transverse angle β, and plots streamlines of canonical examples. Educational; no data collected.
+
+---
+
+## Part 6 — Final checklist
+
+- [ ] Search for prior uses of “centrivical.”
+- [ ] Fill in author, contact, year and license in `book.md`.
+- [ ] Build the PDF and EPUB; check every equation in both.
+- [ ] Make the cover, using an app screenshot if you like.
+- [ ] Publish on Play Books Partner Center (free, worldwide).
+- [ ] Optional: deposit the PDF on Zenodo for a DOI and cite it in the app description.
+- [ ] Build the app and run `./gradlew test`.
+- [ ] Produce a signed APK for direct download and an AAB for Play.
+- [ ] Complete the Play closed test (12 testers, 14 days, if you have a personal account), then the store listing and policy forms.
+- [ ] Once both are live, add the book link to the app’s Define screen and the store link to Appendix C. Release as version 1.1 of each.
