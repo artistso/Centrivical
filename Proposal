@@ -1,0 +1,336 @@
+Theoretical Proposal: The Kinematic Term 'Centrivical' for Inward Swirling Vector Fields
+
+1. Strategic Rationale and Terminology Deficit in Fluid Kinematics
+
+Inward swirling vector fields appear across physical scales throughout theoretical and applied fluid dynamics. Representative physical configurations include atmospheric low-level cyclone inflow, gas dynamics in astrophysical accretion disks, micro-scale turbulence features modeled by stretched vortex tubes, and classical bath drain vortices. Each of these physical systems exhibits two simultaneous kinematic attributes: bulk motion directed toward a central reference axis and rotational motion around that same axis.
+
+Despite the prevalence of such flows, standard hydrodynamic terminology lacks a single, precise adjective to specify the simultaneous existence of inward radial motion and rotational velocity. The existing lexicon presents several distinct gaps and ambiguities:
+
+* Centripetal: Defines an inward radial acceleration or force vector (\mathbf{a}_c = -\Omega^2 r \mathbf{e}_r in uniform circular motion). It does not describe an inward velocity component (u_r < 0) and carries no requirement for azimuthal swirl.
+* Centrifugal: Denotes an outward fictitious force appearing in rotating reference frames (\mathbf{F}_{\text{cf}} = m \Omega^2 r \mathbf{e}_r). It possesses the opposite radial sign and imposes no constraints on velocity field components.
+* Swirling: Specifies a non-zero azimuthal velocity (u_\phi \neq 0), but provides no constraint regarding radial drift. A swirling flow may be radially stationary (u_r = 0) or expanding outward (u_r > 0).
+* Vortical: Indicates a field possessing non-zero vorticity (\nabla \times \mathbf{u} \neq \mathbf{0}). Vorticity is a differential tensor property distinct from local azimuthal velocity (u_\phi). Vortical fields need not drift inward, and conversely, inward swirling fields need not possess vorticity away from central axes (as demonstrated by potential vortices).
+
+While descriptive phrases such as "inward-spiraling flow" are functionally clear, establishing the formal adjective centrivical provides a compact, checkable, and standardized descriptor for theoretical vector field analysis.
+
+The scope of the proposed term is strictly kinematic. "Centrivical" acts as a sign-constraining predicate, functionally analogous to standard kinematic descriptors such as "solenoidal" or "irrotational," though mathematically weaker. The term carries zero dynamical content: it assumes no force laws, implies no accelerations, and asserts no conserved quantities. It constrains field component signs rather than differential governing equations.
+
+Establishing a rigorous predicate requires formalizing the geometric frame of reference and coordinate system within which component signs are evaluated.
+
+2. Geometric Formalization and Core Predicate Definition
+
+Evaluating planar and spatial vector fields unambiguously requires an explicit reference geometry.
+
+Let E denote an oriented Euclidean 3-space containing a designated, oriented reference axis A. Let \mathbf{e}_z denote the unit vector pointing along the positive direction of axis A. For any evaluation point x not located on the axis (x \notin A), define the orthogonal radial distance from the axis as:
+
+r(x) = \operatorname{dist}(x, A) > 0
+
+Let \mathbf{e}_r represent the unit vector pointing radially outward from A through point x. The azimuthal unit vector \mathbf{e}_\phi is defined via the right-handed cross product:
+
+\mathbf{e}_\phi = \mathbf{e}_z \times \mathbf{e}_r
+
+Any 3D vector field \mathbf{u} evaluated at x \notin A decomposes uniquely into cylindrical components:
+
+\mathbf{u} = u_r \mathbf{e}_r + u_\phi \mathbf{e}_\phi + u_z \mathbf{e}_z
+
+         e_z (Axis A)
+          ^
+          |   . x (evaluation point)
+          |  /|
+          | / | e_phi = e_z x e_r
+          |/  v
+  --------+-------> e_r (radial away from axis)
+         /
+        / 
+
+
+Pointwise Predicate Definition
+
+Definition (Centrivical). A vector field \mathbf{u} is centrivical at x about axis A if and only if:
+
+u_r(x) < 0 \quad\text{and}\quad u_\phi(x) \neq 0
+
+A vector field \mathbf{u} is centrivical on a domain D \subset E \setminus A if and only if these dual inequalities hold at every point x \in D.
+
+The predicate asserts the simultaneous presence of inward radial drift (u_r < 0) and non-zero azimuthal velocity (u_\phi \neq 0).
+
+Scope and Operational Constraints
+
+1. Pointwise Nature: The definition evaluates component conditions locally at individual points. It does not require global axisymmetry.
+2. Frame and Axis Relativity: Evaluation is strictly bound to a specified reference frame and axis A. Modifying either frame or axis alters component values and may change the predicate's verdict.
+3. Axial Exclusions: The predicate is undefined on axis A (r = 0), where coordinate unit vectors \mathbf{e}_r and \mathbf{e}_\phi collapse. The underlying vector field \mathbf{u} itself need not be singular on A.
+4. Time-Dependence: For time-varying fields \mathbf{u}(x, t), the predicate is evaluated either at a fixed time slice t = t_0 or pointwise across a designated space-time domain.
+
+Pointwise Swirl vs. Global Circulation
+
+The pointwise condition u_\phi(x) \neq 0 must be distinguished from global line circulation \Gamma(C), defined as the path integral:
+
+\Gamma(C) = \oint_C \mathbf{u} \cdot d\boldsymbol\ell
+
+Circulation depends on integration along a complete closed curve C. A non-zero local azimuthal component u_\phi(x) does not imply non-zero circulation along arbitrary loops. Conversely, a field can yield non-zero circulation \Gamma around loops enclosing axis A while failing the centrivical predicate locally.
+
+Consider the field defined on r > 0:
+
+u_r = 0, \quad u_z = 0, \quad u_\phi = \frac{\Gamma}{2\pi r}(1 - \cos\phi)
+
+This field yields a constant global circulation \Gamma(C) = \Gamma for any positively oriented loop linking axis A. However, along the ray \phi = 0, the azimuthal component evaluates to u_\phi = 0. Consequently, the field fails to be centrivical on any domain intersecting the ray \phi = 0.
+
+Preventing logical misinterpretations across theoretical derivations requires formalizing these constraints into an explicit axiomatic system.
+
+3. Foundational Axiomatic System (A0–A6)
+
+Application of the term "centrivical" is governed by seven foundational axioms to ensure logical consistency and prevent scope creep.
+
+* Axiom A0 (Proposed Status): The term "centrivical" is a proposed kinematic predicate. It carries no mathematical or physical meaning independent of the formal definition established herein.
+* Axiom A1 (Geometry and Reference Frame): Reference axis A, its orientation (\mathbf{e}_z), and the observer's reference frame must be explicitly defined prior to field evaluation.
+* Axiom A2 (Set Specification): The spatial evaluation domain D \subset E \setminus A must be a non-empty set that does not intersect axis A (D \cap A = \varnothing). D is not required to be connected.
+* Axiom A3 (Regularity Conditions): Continuity is sufficient to evaluate the pointwise predicate. Statements involving field derivatives require corresponding differentiability. Trajectory analysis and \omega-limit evaluations require that D be open and that the autonomous vector field be locally Lipschitz continuous.
+* Axiom A4 (Definition Constraint): A field \mathbf{u} is centrivical on D if and only if u_r(x) < 0 and u_\phi(x) \neq 0 at every point x \in D.
+* Axiom A5 (Flow Trajectory Convention): Autonomous particle trajectories satisfy \dot{x} = \mathbf{u}(x). In cylindrical coordinates, trajectory differential equations read:
+
+\dot{r} = u_r, \qquad \dot{\phi} = \frac{u_\phi}{r}, \qquad \dot{z} = u_z
+
+* Axiom A6 (Prohibition of Force Language): The predicate defines no "centrivical force" and implies no mechanical force law. Force fields exhibiting negative radial and non-zero azimuthal components must be analyzed independently and must never be identified as centripetal forces.
+
+These foundational axioms provide the structure necessary to analyze how centrivical fields behave under coordinate shifts, scaling operations, and vector additions.
+
+4. Mathematical Properties: Symmetries, Transformations, and Superposition (Lemmas L1–L7)
+
+Invariance and Symmetry Analysis (L1–L4)
+
+* Lemma L1 (Axis-Preserving Isometries): Spatial translations parallel to axis A and spatial rotations about axis A preserve the centrivical predicate invariant. A planar reflection across any plane containing axis A flips the sign of u_\phi (u_\phi \mapsto -u_\phi), but preserves non-zeroness (u_\phi \neq 0) and leaves u_r < 0 unchanged. Thus, centrivicality is invariant under axis-preserving isometries.
+* Lemma L2 (Axial Irrelevance): The addition of an arbitrary axial velocity component f(x) \mathbf{e}_z (where f is any scalar function) has no effect on centrivicality. A vector field \mathbf{u} is centrivical if and only if \mathbf{u} + f(x)\mathbf{e}_z is centrivical.
+* Lemma L3 (Time Reversal): Under time reversal (\mathbf{u} \mapsto -\mathbf{u}), the radial component flips sign (u_r \mapsto -u_r > 0). Time reversal converts inward drift to outward drift, destroying centrivicality.
+* Lemma L4 (Scalar Scaling): For any positive scalar constant \lambda > 0, the scaled field \lambda \mathbf{u} is centrivical on D if and only if \mathbf{u} is centrivical on D. If \lambda \le 0, centrivicality is destroyed: negative scaling (\lambda < 0) reverses the radial sign (u_r \ge 0), while zero scaling (\lambda = 0) eliminates velocity entirely.
+
+Superposition and Non-Closure (L5)
+
+* Lemma L5 (Failure of Vector Space Structure): Centrivical fields do not form a vector space because they are not closed under vector addition.
+
+Proof: Consider two fields \mathbf{u}_1 = -\mathbf{e}_r + \mathbf{e}_\phi and \mathbf{u}_2 = -\mathbf{e}_r - \mathbf{e}_\phi. Both fields individually satisfy u_r = -1 < 0 and u_\phi = \pm 1 \neq 0, rendering them centrivical on any domain in E \setminus A. Superimposing these fields yields:
+
+\mathbf{u}_1 + \mathbf{u}_2 = (-\mathbf{e}_r + \mathbf{e}_\phi) + (-\mathbf{e}_r - \mathbf{e}_\phi) = -2\mathbf{e}_r
+
+The resulting sum exhibits reinforced inward radial drift (u_r = -2 < 0), but the opposing azimuthal components cancel completely (u_\phi = 0). The sum is pure radial inflow and is therefore not centrivical.
+
+(Note: Linear combinations of centrivical fields with a uniform, fixed swirl sign—such as u_\phi > 0 and v_\phi > 0—do remain centrivical under addition and positive scaling).
+
+Frame Relativity and Transformations (L6–L7)
+
+* Lemma L6 (Galilean Boosts): Under a Galilean transformation to a reference frame moving with constant velocity \mathbf{V} transverse to axis A, the transformed components evaluate to:
+
+u_r' = u_r - \mathbf{V} \cdot \mathbf{e}_r, \qquad u_\phi' = u_\phi - \mathbf{V} \cdot \mathbf{e}_\phi
+
+Because the projection terms \mathbf{V} \cdot \mathbf{e}_r and \mathbf{V} \cdot \mathbf{e}_\phi vary with position and frame velocity, a transverse boost can alter component signs, creating or destroying centrivicality. Observer frames must always be stated alongside reference axes.
+
+* Lemma L7 (Co-Axial Rotating Frames): Evaluating a field \mathbf{u} from a reference frame rotating at constant angular velocity \Omega about axis A yields:
+
+u_r' = u_r, \qquad u_\phi' = u_\phi - \Omega r
+
+Inward radial drift (u_r < 0) is invariant across co-axial rotating frames. However, azimuthal velocity can be rendered zero (u_\phi' = 0) at points where \Omega = u_\phi / r, transforming the flow locally into pure radial inflow.
+
+The local component signs defined by the predicate directly dictate the global geometric and topological properties of autonomous particle pathlines.
+
+5. Trajectory Dynamics and Asymptotic Bounds (Lemmas L8a–L9)
+
+Monotonicity and Orbit Exclusion (L8a–L8b)
+
+* Lemma L8a (Radial Monotonicity): Along an autonomous trajectory remaining in a domain D where u_r < 0, particle radius satisfies \dot{r} = u_r < 0. Consequently, r(t) is strictly monotonically decreasing. This monotonic reduction in radial distance proves that no closed or periodic orbits can exist entirely within D. This exclusion relies purely on inward radial drift; azimuthal swirl plays no role.
+* Lemma L8b (Angular Motion and Component Swirl): For an autonomous centrivical flow, \dot{\phi} = u_\phi / r \neq 0. The unwrapped angular coordinate \phi(t) is strictly monotonic along trajectories, forcing the transverse projection of particle pathlines to spiral continuously inward. (Full 3D trajectories may also exhibit axial motion if u_z \neq 0). On each connected component of D, \operatorname{sgn}(u_\phi) is invariant, though separate disconnected components of D may swirl in opposite senses.
+
+Asymptotic Radial Limits and Spatial Fates (L8c)
+
+* Lemma L8c (Radial Limit Behavior): Let a trajectory remain within D across its maximal forward time interval [0, T_{\max}). Because r(t) > 0 is strictly decreasing, the radial limit exists and is non-negative:
+
+r_\infty = \lim_{t \uparrow T_{\max}} r(t) \ge 0
+
+Two distinct asymptotic cases emerge:
+
+1. Axis Approach (r_\infty = 0): The trajectory approaches axis A in spatial distance (in finite time if T_{\max} < \infty, or asymptotically as t \to \infty).
+2. Non-Zero Radial Limit (r_\infty > 0): No general spatial behavior can be inferred. The trajectory may approach an outer domain boundary, escape axially to infinity, or lack a finite spatial limit point.
+
+Axis Approach (r_infty = 0)         Boundary Approach (r_infty > 0)
+        Axis A                             Axis A    Boundary r = 1
+          |                                  |          |
+    (     |                                  |   (      |
+     \    |                                  |    \     |
+      )   |                                  |     )    |
+     /    |                                  |    /     |
+    *-->  | (r -> 0)                         |   *----->| (r -> 1)
+
+
+Boundary Approach Counterexample
+
+To demonstrate that r_\infty > 0 does not imply axis approach, consider the field \mathbf{u} = -(r - 1)\mathbf{e}_r + \mathbf{e}_\phi defined on domain D = \{r > 1\}. This field is centrivical because u_r = -(r - 1) < 0 and u_\phi = 1 \neq 0 for all r > 1. Trajectory radii obey \dot{r} = -(r - 1), integrating to:
+
+r(t) = 1 + (r(0) - 1)e^{-t}
+
+As t \to \infty, r(t) \to 1^+. Trajectories spiral inward toward the cylindrical boundary r = 1, never approaching axis A (r = 0).
+
+Topological Limit Point Restriction
+
+Under the regularity assumptions of Axiom A3, a forward-complete trajectory operating in D cannot possess any \omega-limit points in the interior of open set D. If an interior \omega-limit point existed, the local condition u_r < 0 would force r(t) to decrease further, contradicting the recurrent property of \omega-limit sets. Limit points located on the boundary of D are not excluded.
+
+Streamline Geometry (L9)
+
+* Lemma L9 (Streamline Equation): At any point where u_\phi \neq 0, spatial streamlines satisfy the differential relation:
+
+\frac{dr}{d\phi} = \frac{r u_r}{u_\phi}
+
+While component signs dictate trajectory monotonicity, they remain fully decoupled from vector derivative operations such as divergence and curl.
+
+6. Independence of Divergence and Vorticity (Lemmas L10–L12, Properties P1–P2)
+
+Analytical Independence Derivations
+
+* Lemma L10 (Divergence Independence): In cylindrical coordinates, the divergence of a vector field is given by:
+
+\nabla \cdot \mathbf{u} = \frac{1}{r}\frac{\partial(r u_r)}{\partial r} + \frac{1}{r}\frac{\partial u_\phi}{\partial \phi} + \frac{\partial u_z}{\partial z} = \frac{\partial u_r}{\partial r} + \frac{u_r}{r} + \frac{1}{r}\frac{\partial u_\phi}{\partial \phi} + \frac{\partial u_z}{\partial z}
+
+The pointwise inequalities u_r < 0 and u_\phi \neq 0 place no restrictions on partial derivatives \frac{\partial u_r}{\partial r}, \frac{\partial u_\phi}{\partial \phi}, or \frac{\partial u_z}{\partial z}. Depending on the spatial gradient \frac{\partial u_r}{\partial r} relative to the ratio \frac{u_r}{r}, centrivical fields can be:
+
+1. Incompressible: \nabla \cdot \mathbf{u} = 0 (e.g., when \frac{\partial u_r}{\partial r} = -\frac{u_r}{r}).
+2. Compressing / Volume-Decreasing: \nabla \cdot \mathbf{u} < 0.
+3. Expanding / Volume-Increasing: \nabla \cdot \mathbf{u} > 0 (e.g., when \frac{\partial u_r}{\partial r} > -\frac{u_r}{r}).
+
+* Lemma L11 (Vorticity Independence): In cylindrical coordinates, the curl \boldsymbol\omega = \nabla \times \mathbf{u} expands to:
+
+\nabla \times \mathbf{u} = \left( \frac{1}{r}\frac{\partial u_z}{\partial \phi} - \frac{\partial u_\phi}{\partial z} \right) \mathbf{e}_r + \left( \frac{\partial u_r}{\partial z} - \frac{\partial u_z}{\partial r} \right) \mathbf{e}_\phi + \left( \frac{1}{r}\frac{\partial(r u_\phi)}{\partial r} - \frac{1}{r}\frac{\partial u_r}{\partial \phi} \right) \mathbf{e}_z
+
+Evaluating the axial vorticity component (\nabla \times \mathbf{u})_z = \frac{1}{r}\frac{\partial(r u_\phi)}{\partial r} - \frac{1}{r}\frac{\partial u_r}{\partial \phi} shows that fixing component values u_r < 0 and u_\phi \neq 0 at a point imposes zero constraints on radial derivative \frac{\partial u_\phi}{\partial r} or azimuthal derivative \frac{\partial u_r}{\partial \phi}. Thus, centrivical fields may be strictly irrotational (\nabla \times \mathbf{u} = \mathbf{0}) outside axis A, or possess arbitrary vorticity profiles.
+
+Characterization and Exclusion Rules
+
+* Property P1 (Planar Projection Characterization): A field \mathbf{u} is centrivical on D if and only if its orthogonal projection onto the plane perpendicular to axis A exhibits negative radial components and non-zero azimuthal components throughout D.
+* Lemma L12 (Excluded Flow Regimes): The following three flow classes are strictly non-centrivical:
+  1. Pure Rotation: u_r = 0 (lacks inward radial drift).
+  2. Pure Radial Inflow: u_\phi = 0 (lacks azimuthal swirl).
+  3. Outward Motion: u_r > 0 (exhibits outward radial drift).
+* Property P2 (Absence of Dynamic Implications): Asserting that a flow is centrivical carries zero dynamic implications: it implies no centripetal acceleration, no incompressibility, no specific vorticity distribution, no physical force law, and no conservation principles.
+
+To examine how these derivative-independent properties manifest in standard fluid dynamics, we evaluate four canonical flow models.
+
+7. Canonical Flow Models and Comparative Analysis
+
+Four classical vector fields illustrate the mathematical behavior and physical domain boundaries of the centrivical predicate:
+
+1. Linear Inward Spiral: Defined by \mathbf{u} = -a r \mathbf{e}_r + \Omega r \mathbf{e}_\phi (a > 0, \Omega \neq 0).
+  * Divergence: \nabla \cdot \mathbf{u} = \frac{1}{r}\frac{\partial(-a r^2)}{\partial r} = -2a < 0.
+  * Vorticity: \nabla \times \mathbf{u} = \frac{1}{r}\frac{\partial(\Omega r^2)}{\partial r}\mathbf{e}_z = 2\Omega \mathbf{e}_z.
+  * Streamlines: Trajectories obey r(t) = r_0 e^{-at} and \phi(t) = \phi_0 + \Omega t, forming logarithmic spirals r(\phi) = r_0 \exp\left[-\frac{a}{\Omega}(\phi - \phi_0)\right].
+2. Sink Plus Vortex: Defined by \mathbf{u} = -\frac{Q}{2\pi r}\mathbf{e}_r + \frac{\Gamma}{2\pi r}\mathbf{e}_\phi (Q > 0, \Gamma \neq 0).
+  * Divergence: \nabla \cdot \mathbf{u} = \frac{1}{r}\frac{\partial(-Q/2\pi)}{\partial r} = 0.
+  * Vorticity: \nabla \times \mathbf{u} = \frac{1}{r}\frac{\partial(\Gamma/2\pi)}{\partial r}\mathbf{e}_z = \mathbf{0} for all r > 0.
+  * Properties: Incompressible and irrotational away from the axis, with singular axis r=0 and non-zero circulation \Gamma.
+3. Burgers Vortex Model: Defines stretched vortex tubes in fluid turbulence via components:
+
+u_r = -\frac{a}{2}r, \qquad u_\phi = \frac{\Gamma}{2\pi r}\left(1 - e^{-\frac{a r^2}{4\nu}}\right), \qquad u_z = a z \qquad (a > 0, \nu > 0, \Gamma \neq 0)
+
+* Divergence: \nabla \cdot \mathbf{u} = \frac{1}{r}\frac{\partial(-a r^2 / 2)}{\partial r} + \frac{\partial(az)}{\partial z} = -a + a = 0 (incompressible).
+* Vorticity: The axial vorticity component evaluates to:
+
+\left(\nabla \times \mathbf{u}\right)_z = \frac{1}{r}\frac{\partial}{\partial r}\left[\frac{\Gamma}{2\pi}\left(1 - e^{-\frac{a r^2}{4\nu}}\right)\right] = \frac{a\Gamma}{4\pi\nu} e^{-\frac{a r^2}{4\nu}} \implies \nabla \times \mathbf{u} = \frac{a\Gamma}{4\pi\nu} e^{-\frac{a r^2}{4\nu}} \mathbf{e}_z
+
+* Properties: Smooth, rotational, incompressible fluid flow model satisfying centrivicality for all r > 0.
+
+1. Boundary Approach Field: Defined by \mathbf{u} = -(r - 1)\mathbf{e}_r + \mathbf{e}_\phi on D = \{r > 1\}.
+  * Divergence: \nabla \cdot \mathbf{u} = \frac{1}{r}\frac{\partial(-r(r-1))}{\partial r} = \frac{-2r + 1}{r} = -\frac{2r - 1}{r}.
+  * Vorticity: Cylindrical curl yields:
+
+\left(\nabla \times \mathbf{u}\right)_z = \frac{1}{r}\frac{\partial(r \cdot 1)}{\partial r} - \frac{1}{r}\frac{\partial(-(r-1))}{\partial \phi} = \frac{1}{r}(1) - 0 = \frac{1}{r} \implies \nabla \times \mathbf{u} = \frac{1}{r}\mathbf{e}_z \neq \mathbf{0}
+
+* Properties: Centrivical flow on r > 1 whose trajectories converge to r = 1 rather than axis A.
+
+Flow Model	Radial Velocity (u_r)	Azimuthal Velocity (u_\phi)	Axial Velocity (u_z)	Divergence (\nabla \cdot \mathbf{u})	Vorticity (\nabla \times \mathbf{u})	Domain D	Radial Fate (r_\infty)
+Linear Spiral	-a r \quad (a>0)	\Omega r \quad (\Omega\neq 0)	0	-2a	2\Omega \mathbf{e}_z	r > 0	r_\infty = 0 (axis approach)
+Sink + Vortex	-\frac{Q}{2\pi r} \quad (Q>0)	\frac{\Gamma}{2\pi r} \quad (\Gamma\neq 0)	0	0	\mathbf{0} \quad (r>0)	r > 0	r_\infty = 0 (axis approach)
+Burgers Vortex	-\frac{a}{2}r \quad (a>0)	\frac{\Gamma}{2\pi r}\left(1 - e^{-\frac{a r^2}{4\nu}}\right)	a z	0	\frac{a\Gamma}{4\pi\nu} e^{-\frac{a r^2}{4\nu}} \mathbf{e}_z	r > 0	r_\infty = 0 (axis approach)
+Boundary Approach	-(r - 1)	1	0	-\frac{2r-1}{r}	\frac{1}{r}\mathbf{e}_z	r > 1	r_\infty = 1 (boundary limit)
+
+Translating these formal definitions and analytic models into experimental settings requires accommodating finite measurement precision and sensor noise.
+
+8. Empirical Data Classification and Measurement Uncertainty
+
+Uniform Margin Formalization
+
+When evaluating experimental velocity fields, continuous zero-threshold conditions must be extended to compact sets. For a compact subset D_0 \subset D and a positive margin parameter \varepsilon > 0, a vector field \mathbf{u} is (\varepsilon, D_0)-centrivical if:
+
+u_r \le -\varepsilon \quad\text{and}\quad |u_\phi| \ge \varepsilon \quad \text{on } D_0
+
+Parameter \varepsilon represents an operational threshold margin. Any continuous, strictly centrivical vector field operating on a compact domain automatically possesses a positive margin \varepsilon > 0. An isolated zero of u_\phi fails both the strict definition and all margin conditions.
+
+Interval-Based Uncertainty Classifier
+
+In empirical fluid mechanics, velocity component measurements contain noise, yielding closed uncertainty intervals I_r = [u_{r,\text{min}}, u_{r,\text{max}}] and I_\phi = [u_{\phi,\text{min}}, u_{\phi,\text{max}}]. Data classification follows a strict three-valued logic system:
+
+\text{Verdict} = \begin{cases} \mathbf{CENTRIVICAL} & \text{iff } \sup I_r < 0 \quad\text{and}\quad 0 \notin I_\phi \\ \mathbf{NOT\ CENTRIVICAL} & \text{iff } I_r \subset [0, \infty) \quad\text{or}\quad I_\phi = \{0\} \\ \mathbf{UNDETERMINED} & \text{otherwise} \end{cases}
+
+Epistemic and Measure-Theoretic Justification
+
+In continuous velocity component space \mathbb{R}^3, the subspace corresponding to pure radial inflow (u_\phi = 0) represents a manifold of lower dimension—a set of measure zero. When empirical measurement intervals span zero (0 \in I_\phi), the true physical value of u_\phi could be exactly zero or a non-zero value masked by experimental noise.
+
+Failing to resolve swirl above a noise floor does not constitute evidence of zero swirl. Therefore, interval containment 0 \in I_\phi must remain epistemically uncertified (UNDETERMINED). In contrast, certifying a flow as NOT CENTRIVICAL requires either positive proof of non-inward radial drift (I_r \subset [0, \infty)) or a certified exact absence of azimuthal swirl (I_\phi = \{0\}).
+
+       Interval Ir = [ur_min, ur_max]           Verdict Condition
+  <===|==============|=================> 0  ---> CERTIFIED CENTRIVICAL (sup Ir < 0)
+             ur_min   ur_max
+
+  <======================|========|====> 0  ---> CERTIFIED NOT CENTRIVICAL (Ir in [0,inf))
+                          ur_min   ur_max
+
+  <============|=========+========|====> 0  ---> UNDETERMINED (0 in Ir)
+                ur_min            ur_max
+
+
+Signed Transverse Angle (\beta)
+
+To quantify vector alignment in the transverse plane, we define the signed transverse angle \beta:
+
+\beta = \operatorname{atan2}(u_\phi, -u_r) \in \left(-\frac{\pi}{2}, \frac{\pi}{2}\right) \setminus \{0\}
+
+Because u_r < 0, the quantity -u_r > 0 serves as the positive reference axis for the \operatorname{atan2}(y, x) function. This transformation maps the pure inward radial vector -\mathbf{e}_r to the zero-angle direction (\beta = 0) in the local polar velocity plane. The sign of \beta matches the sign of azimuthal velocity (\operatorname{sgn}\beta = \operatorname{sgn}u_\phi). Positive values (\beta > 0) indicate counterclockwise swirl when viewed from the positive end of axis A (+\mathbf{e}_z). Magnitude |\beta| measures the angular deflection relative to pure inward radial drift.
+
+             +e_z (Axis A viewed top-down)
+               |
+               |     / Vector u (transverse proj)
+               |    / 
+               |   /  Angle beta = atan2(u_phi, -u_r)
+               |  /
+               v /
+  <------------+------------> (Inward Radial Direction -e_r)
+
+
+Integrating this mathematical framework into scientific literature requires consistent syntactic conventions and application rules.
+
+9. Standardized Nomenclature and Rules of Application
+
+Etymological Rationale
+
+The term centrivical is a deliberate linguistic blend of centripetal (from Latin centrum, center, and petere, to seek) and vortical (from vortex), meaning conceptually "center-seeking swirl." Although centrovortical represents a more transparent compound, centrivical is selected for linguistic compactness.
+
+Eight Mandatory Rules of Application
+
+Authors adopting the term in formal literature must adhere to eight operational rules:
+
+1. First-Use Explicit Definition: Authors must state the pointwise component definition upon initial usage: "By centrivical, we mean a vector field exhibiting inward radial motion (u_r < 0) and non-zero azimuthal motion (u_\phi \neq 0) relative to a specified reference axis and reference frame."
+2. Approved Adjectives and Syntactic Restrictions: Restrict usage to the modifiers "centrivical flow" or "centrivical field." Authors are strictly prohibited from using the phrase "centrivical force."
+3. Mandatory Reference Specification: Reference axis A and observer reference frame must be explicitly identified in the same sentence as the term.
+4. Contextual Isolation: Avoid placing the term in contexts where readers could mistake it for a third classical physical force alongside "centripetal" and "centrifugal."
+5. Approved Grammatical Forms: The approved noun form is centrivicality and the approved adverbial form is centrivically. The bare noun usage ("a centrivical") is prohibited.
+6. Prohibition of Inferential Leaps: Authors must not infer fluid incompressibility, vorticity distributions, centripetal accelerations, or dynamic force laws based solely on a centrivical field classification.
+7. Circulation Rigor: Reserve the term "circulation" strictly for closed line integrals \Gamma(C), maintaining absolute separation from pointwise azimuthal velocity u_\phi.
+8. Uncertainty Reporting Compliance: In empirical studies, experimental margin diagnostics must be separated from strict continuous definitions. Authors must report an "undetermined" verdict whenever experimental uncertainty bounds span zero.
+
+These application rules ensure that the theoretical predicate remains clear, consistent, and unencumbered by invalid physical inferences.
+
+10. Summary Framework and Conclusion
+
+This proposal establishes a precise, checkable, and narrow kinematic predicate for mathematical fluid dynamics. The theoretical pillars of the centrivical predicate are summarized below:
+
+* Core Predicate: Defined strictly by pointwise component inequalities u_r < 0 and u_\phi \neq 0 relative to a stated axis A and reference frame.
+* Transformation Properties: Invariant under axis-preserving spatial isometries and axial velocity additions. Non-invariant under time reversal, Galilean boosts, co-axial frame rotations, and linear superposition.
+* Algebraic Structure: Fails vector space closure due to potential azimuthal cancellation under vector addition.
+* Trajectory Dynamics: Radial monotonicity (\dot{r} < 0) rules out periodic orbits within the centrivical domain. Trajectories exhibit bounded, non-negative radial limits (r_\infty \ge 0), but non-zero limits (r_\infty > 0) can converge to domain boundaries rather than reference axes.
+* Kinematic Decoupling: Mathematically independent of field divergence (\nabla \cdot \mathbf{u}), vorticity (\nabla \times \mathbf{u}), and mechanical force dynamics.
+
+The proposed term centrivical fills a distinct vocabulary gap in fluid kinematics, providing theoretical fluid dynamicists and mathematical physicists with an exact descriptor for inward swirling vector fields.
